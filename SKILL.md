@@ -62,6 +62,8 @@ ideas (riskiest first):
   #2  session-store-migration   pending
 ```
 
+ARCHITECTURE writes that list when the idea decomposes; INTEGRATION marks an idea done when its last task merges.
+
 ## The mechanical half
 
 `scripts/check_gates.py` sits beside the phases and checks only what a machine can check exactly: closed file list, the ceiling, red suite, skip and focus markers in the diff, scratch residue, a gate under every phase present, evidence integrity, receipts on claims, feel-check recorded. Run it before claiming any gate; unconditionally at VERIFICATION and INTEGRATION.
@@ -149,11 +151,11 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 1. **Decomposition** — an estimate against the ceiling: 5 files and 400 changed lines by default, set per idea in the ledger. Under it, design proceeds. Over it, two options are priced and the gate chooses between them:
 
-   - **composite** — the idea decomposes into a composite. Its ledger lists the ideas it produced, riskiest first, one line each with a status, and pins the seams between them. Each of those is an idea like any other, opening at VISION in inheritance mode with the composite's stamp in its header. The composite closes when its last idea closes.
+   - **composite** — the idea decomposes into a composite: the ideas it produces are listed in its ledger, riskiest first, and each opens at VISION in inheritance mode with the composite's stamp in its header. The record's shape is in Ledger conventions. The composite closes when its last idea closes.
    - **raise** — the idea runs whole at a ceiling of the estimate plus a fifth, rounded up to a whole file and to ten lines. No upper bound; the gate carries the decision.
 
    Either way the ledger records the estimate and what was granted.
-2. **Seams** — the interfaces between ideas, pinned. Changing one later is a renegotiation, never an idea's private choice.
+2. **Seams** — when the idea decomposes, the interfaces between the ideas, pinned. Changing one later is a renegotiation, never an idea's private choice.
 3. **Design of the current idea only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the idea, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
 
 **Rules**

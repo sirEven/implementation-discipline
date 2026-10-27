@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """check_gates.py — the mechanical half of the Implementation Discipline gates.
 
-Reads git state and the slice ledger. Asserts what can be checked exactly and
+Reads git state and the idea ledger. Asserts what can be checked exactly and
 prints, explicitly, what it could not check. Read-only: never writes, never
 touches the network, stdlib only.
 
@@ -120,7 +120,7 @@ def parse(text: str) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Mechanical checks for Implementation Discipline gates.")
     ap.add_argument("-r", "--repo", default=".", help="repo root (default: cwd)")
-    ap.add_argument("--slug", help="slice slug under Implementation/")
+    ap.add_argument("--slug", help="idea slug under Implementation/")
     ap.add_argument("--no-tests", action="store_true", help="skip running the test command")
     ap.add_argument("--max-files", type=int, default=None,
                     help="cycle ceiling in files (default: ledger `max-files:`, else 5)")
@@ -170,7 +170,7 @@ def main() -> int:
         ok = git(repo, "rev-parse", "--verify", f"{meta['base']}^{{commit}}").returncode == 0
         add(FACTS, "base resolves", PASS if ok else FAIL, meta["base"] + ("" if ok else " — unknown commit"))
     else:
-        add(FACTS, "base resolves", SKIP, "no `base:` line in the ledger; slice not opened")
+        add(FACTS, "base resolves", SKIP, "no `base:` line in the ledger; idea not opened")
 
     # changed files
     changed: list[str] = []

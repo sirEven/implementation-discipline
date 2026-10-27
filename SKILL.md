@@ -22,6 +22,12 @@ VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECTURE → SPLIT → D
 
 Technical work by default: code, config or system state changes, anything that changes how a project behaves. Not questions, explanations, prose, notes, or one-off reads. Whether it is overkill is the user's call.
 
+## Roles
+
+- **the user** — the person gating the work. Only they approve, raise a ceiling, or call a halt.
+- **the lead** — me: the agent running this pipeline. The design, the briefs, the verification and the integration are mine.
+- **a worker** — a delegated agent executing one task from one brief, with no access to the other tasks' context.
+
 ## Seam
 
 Three companions, each loaded at its moment, none of them restated here:
@@ -187,9 +193,11 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 ## 6. DISPATCH
 
-**Purpose** — turn each task into a brief a worker can execute without asking anything, then send it and hold the line while it runs.
+**Purpose** — turn each task into something executable: an instruction to myself when there are no workers, a brief when there are.
 
-**Brief anatomy** — the task's scope in one line and its exit condition · closed file list with `file:line` anchors verified in INWARD RESEARCH · pinned interfaces as verbatim signature text, never a description of them · the tests to write, stated as behaviour · excluded neighbours · the project's test command · read limit: the closed file list and its imports, nothing exploratory · the deviation rule verbatim · done definition: the exact state and outputs to return.
+**Solo** — the default. No workers, so each task's exit condition is the instruction and the tasks run in the order SPLIT set. Everything below is what delegation adds.
+
+**Brief anatomy** — when delegating, each task becomes a brief containing: the task's scope in one line and its exit condition · closed file list with `file:line` anchors verified in INWARD RESEARCH · pinned interfaces as verbatim signature text, never a description of them · the tests to write, stated as behaviour · excluded neighbours · the project's test command · read limit: the closed file list and its imports, nothing exploratory · the deviation rule verbatim · done definition: the exact state and outputs to return.
 
 **Test briefs** — stub every network path the unit touches: on setup, on interaction, and on the error path. Error-path tests abort before any call, so a raising stub proves the request is never reached. Assert the resulting state, not the absence of an exception. An unstubbed path is how a guard-kill later passes for the wrong reason.
 
@@ -199,8 +207,6 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - One brief per task; no brief spans two tasks.
 - Workers report blockers to the lead, never to the user, and never re-scope.
 - A blocked or partial return belongs to DISPATCH: re-brief it, or send it back to ARCHITECTURE if the design is at fault. VERIFICATION only ever sees work claimed complete.
-
-**Solo mode** — no workers: the brief is the task's exit condition, and the tasks run in the written order. Same discipline, no paperwork.
 
 **Gate** — each brief read as a stranger would, against a mechanical checklist: closed file list · interfaces verbatim · test command · read limit · deviation rule · done definition. One brief per task; nothing dispatched until its sequenced predecessor has integrated. Technical — no user gate.
 

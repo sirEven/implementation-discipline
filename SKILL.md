@@ -159,7 +159,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
    Either way the ledger records the estimate and what was granted.
 2. **Seams** — the interfaces between ideas, pinned. Changing one later is a renegotiation, never an idea's private choice.
 3. **Design of the current idea only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the idea, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
-4. **Traceability, both directions** — every element of the vision maps to at least one design element; every design element names the element of the vision it serves, or the necessity it satisfies.
+4. **Traceability** — each design element names the vision line it serves. Anything serving none is cut as scope creep; a vision line no element serves reopens VISION, because the vision is not complete yet.
 
 **Rules**
 
@@ -168,7 +168,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Design against INWARD RESEARCH receipts. An assumption not in evidence sends the phase back, not forward.
 - Every abstraction pays for itself. No speculative generality, no standalone refactor.
 
-**Gate** — **coverage:** every element of the vision mapped, every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea decomposes, the composite is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
+**Gate** — **coverage:** every vision line served by a design element, and every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea decomposes, the composite is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
 
 ## 5. SPLIT
 

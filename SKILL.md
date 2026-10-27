@@ -37,7 +37,11 @@ Three companions, each loaded at its moment, none of them restated here:
 ```
 base: <commit the slice started from>
 test-command: <exact command that runs the suite>
+max-files: 5
+max-lines: 400
 ```
+
+`max-files` and `max-lines` are optional; when absent the checker uses 5 and 400, and a CLI flag overrides both.
 
 ```closed-files
 path/to/a
@@ -137,7 +141,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 **Produces, in this order**
 
-1. **Decomposition** — an estimate against the ceiling (about 5 files, 400 changed lines). Over it, the undertaking is cut into slices: each a full pipeline run, each leaving the system working, ordered riskiest first, with the seams between them pinned. Under it, the verdict is "single cycle".
+1. **Decomposition** — an estimate against the cycle ceiling: 5 files and 400 changed lines by default, set per slice in the ledger. Over it, the undertaking is cut into slices: each a full pipeline run, each leaving the system working, ordered riskiest first, with the seams between them pinned. Under it, the verdict is "single cycle".
 2. **Seams** — the interfaces between slices, pinned. Changing one later is a renegotiation, never a slice's private choice.
 3. **Design of the current slice only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the slice, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
 4. **Traceability, both directions** — every vision outcome maps to at least one design element; every design element names the outcome it serves or the necessity it satisfies.

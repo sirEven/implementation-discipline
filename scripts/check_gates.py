@@ -98,6 +98,10 @@ def parse(text: str) -> dict:
     base = m.group(1) if m else None
     m = re.search(r"^test-command:\s*(.+)$", text, re.M)
     test_command = m.group(1).strip() if m else None
+    m = re.search(r"^max-files:\s*(\d+)", text, re.M)
+    max_files = int(m.group(1)) if m else None
+    m = re.search(r"^max-lines:\s*(\d+)", text, re.M)
+    max_lines = int(m.group(1)) if m else None
     m = re.search(r"```closed-files\s*\n(.*?)```", text, re.S)
     closed = [ln.strip() for ln in m.group(1).splitlines() if ln.strip()] if m else None
     feel = re.search(r"^feel-check:\s*(\S+)(.*)$", text, re.M)
@@ -105,6 +109,8 @@ def parse(text: str) -> dict:
     return {
         "base": base,
         "test_command": test_command,
+        "max_files": max_files,
+        "max_lines": max_lines,
         "closed": closed,
         "feel": feel,
         "evidence": evidence,
@@ -116,8 +122,10 @@ def main() -> int:
     ap.add_argument("-r", "--repo", default=".", help="repo root (default: cwd)")
     ap.add_argument("--slug", help="slice slug under Implementation/")
     ap.add_argument("--no-tests", action="store_true", help="skip running the test command")
-    ap.add_argument("--max-files", type=int, default=5)
-    ap.add_argument("--max-lines", type=int, default=400)
+    ap.add_argument("--max-files", type=int, default=None,
+                    help="cycle ceiling in files (default: ledger `max-files:`, else 5)")
+    ap.add_argument("--max-lines", type=int, default=None,
+                    help="cycle ceiling in changed lines (default: ledger `max-lines:`, else 400)")
     ap.add_argument("--json", action="store_true", help="machine-readable output")
     args = ap.parse_args()
 
@@ -136,6 +144,24 @@ def main() -> int:
         return 2
     text = ledger.read_text(encoding="utf-8", errors="replace")
     meta = parse(text)
+    if args.max_files is not None:
+        ceiling_files, files_origin = args.max_files, "flag"
+    elif meta["max_files"] is not None:
+        ceiling_files, files_origin = meta["max_files"], "ledger"
+    else:
+        ceiling_files, files_origin = 5, "default"
+    if args.max_lines is not None:
+        ceiling_lines, lines_origin = args.max_lines, "flag"
+    elif meta["max_lines"] is not None:
+        ceiling_lines, lines_origin = meta["max_lines"], "ledger"
+    else:
+        ceiling_lines, lines_origin = 400, "default"
+    parts = []
+    if files_origin != "default":
+        parts.append(f"files {files_origin}")
+    if lines_origin != "default":
+        parts.append(f"lines {lines_origin}")
+    origin = f" ({', '.join(parts)})" if parts else ""
     ledger_dir = str(ledger.parent.relative_to(repo))
     ledger_rel = str(ledger.relative_to(repo))
 
@@ -187,12 +213,12 @@ def main() -> int:
                 inside["lines"] += int(a) + int(d)
         tracked = {ln.split("\t")[-1] for ln in numstat if len(ln.split("\t")) == 3}
         inside["files"] += len([p for p in changed if p not in tracked and not is_ledger(p)])
-        over = inside["files"] > args.max_files or inside["lines"] > args.max_lines
+        over = inside["files"] > ceiling_files or inside["lines"] > ceiling_lines
         add(
             FACTS,
             "cycle ceiling",
             FAIL if over else PASS,
-            f"{inside['files']}/{args.max_files} files, {inside['lines']}/{args.max_lines} lines"
+            f"{inside['files']}/{ceiling_files} files, {inside['lines']}/{ceiling_lines} lines{origin}"
             + (" — decompose in ARCHITECT" if over else ""),
         )
 

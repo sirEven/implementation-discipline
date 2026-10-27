@@ -29,6 +29,21 @@ Any agent that reads the [agentskills.io](https://agentskills.io/specification) 
 python3 scripts/check_gates.py --help
 ```
 
+## Configuration
+
+The checker reads these from the slice ledger:
+
+| key | required | default | override |
+|---|---|---|---|
+| `base` | yes | — | — |
+| `test-command` | yes | — | — |
+| `max-files` | no | 5 | `--max-files` |
+| `max-lines` | no | 400 | `--max-lines` |
+
+It also reads the fenced `closed-files` block and the `feel-check:` line; both are described in SKILL.md.
+
+Two things that are not settings. The three-lane limit is a rule of the pipeline, not a knob. And the ceiling is a trigger with teeth: the checker fails a slice that crosses it, which sends the work back to ARCHITECT for decomposition rather than letting it run long.
+
 ## Tests
 
 ```bash

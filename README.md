@@ -11,17 +11,17 @@ VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISP
 | VISION | agreed destination: problem, who it serves, observable outcome, non-goals, constraints, unknowns |
 | OUTWARD RESEARCH | the world against the vision: what already exists, pivots worth taking, claims that it cannot be done — may return to VISION as often as it takes |
 | INWARD RESEARCH | the project: files, entry paths, dependencies in use, contracts, baseline |
-| ARCHITECT | function-level design, and a slice plan when the work exceeds the cycle ceiling |
-| SPLIT | lanes with disjoint file sets, sequenced where they touch the same file |
-| DISPATCH | one self-contained brief per lane |
+| ARCHITECT | function-level design, and a plan to split an over-sized idea when it exceeds the cycle ceiling |
+| SPLIT | tasks with disjoint file sets, sequenced where they touch the same file |
+| DISPATCH | one self-contained brief per task |
 | VERIFY | proof by execution: the diff read, the suite run, a guard killed, the user's path walked |
 | INTEGRATE | merge in written order, seam check, feel-check, commit |
 
 ## Terms
 
-**Slice** — one full run of the eight phases: an undertaking small enough to design, build and verify in a single pass. When the work exceeds the cycle ceiling, ARCHITECT cuts it into slices, each leaving the system working, ordered riskiest first — and each slice then runs this whole pipeline on its own.
+**Idea** — one full run of the eight phases: a piece of intent small enough to design, build and verify in a single pass. When the idea exceeds the cycle ceiling, ARCHITECT splits it into a sequence of smaller ideas, each leaving the system working, ordered riskiest first — and each one then runs this whole pipeline on its own.
 
-**Lane** — a parallel unit inside a slice: a disjoint set of files handed to one self-contained brief. Lanes never cross slices.
+**Task** — a parallel unit inside an idea: a disjoint set of files handed to one self-contained brief. Tasks never cross ideas.
 
 ## Install
 
@@ -29,7 +29,7 @@ Any agent that reads the [agentskills.io](https://agentskills.io/specification) 
 
 ## Scripts
 
-`scripts/check_gates.py` — checks the mechanical part of the gates against a slice ledger.
+`scripts/check_gates.py` — checks the mechanical part of the gates against an idea's ledger.
 
 ```bash
 python3 scripts/check_gates.py --help
@@ -37,7 +37,7 @@ python3 scripts/check_gates.py --help
 
 ## Configuration
 
-The checker reads these from the slice ledger:
+The checker reads these from the idea's ledger:
 
 | key | required | default | override |
 |---|---|---|---|
@@ -48,7 +48,7 @@ The checker reads these from the slice ledger:
 
 It also reads the fenced `closed-files` block and the `feel-check:` line; both are described in SKILL.md.
 
-Two things that are not settings. The three-lane limit is a rule of the pipeline, not a knob. And the ceiling is a trigger with teeth: the checker fails a slice that crosses it, which sends the work back to ARCHITECT for decomposition rather than letting it run long.
+Two things that are not settings. The three-task limit is a rule of the pipeline, not a knob. And the ceiling is a trigger with teeth: the checker fails an idea that crosses it, which sends the work back to ARCHITECT for decomposition rather than letting it run long.
 
 ## Tests
 

@@ -14,7 +14,7 @@ metadata:
 
 # Implementation Discipline
 
-A gate approves exactly one thing: entry into the next phase. It may also refuse and send the work back to an earlier phase — this is never silent. No gate greenlights an undertaking, no phase opens early, no phase is skipped.
+A gate approves exactly one thing: entry into the next phase. It may also refuse and send the work back to an earlier phase — this is never silent. No gate greenlights more than the next phase, no phase opens early, no phase is skipped.
 
 VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISPATCH → VERIFY → INTEGRATE
 
@@ -35,7 +35,7 @@ Three companions, each loaded at its moment, none of them restated here:
 `check_gates.py` reads five things from `Implementation/<slug>/note.md`. Write them literally:
 
 ```
-base: <commit the slice started from>
+base: <commit the idea started from>
 test-command: <exact command that runs the suite>
 max-files: 5
 max-lines: 400
@@ -62,7 +62,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 ## Standing rules — every phase
 
-- **No red tests. Ever.** Not a failure you believe is unrelated to the change, not one that was red before you arrived, not one that is "expected in this environment", not a skip, not an expected-failure annotation, not a disabled test. A red test is a defect in the repository until it is green. It blocks every gate; fixing it becomes work in this slice or the next, never a note that says "known issue".
+- **No red tests. Ever.** Not a failure you believe is unrelated to the change, not one that was red before you arrived, not one that is "expected in this environment", not a skip, not an expected-failure annotation, not a disabled test. A red test is a defect in the repository until it is green. It blocks every gate; fixing it becomes work in this idea or the next, never a note that says "known issue".
 - Every claim carries a receipt: `file:line`, command output, or URL with version and date.
 - Every claim is labelled measured or assumed.
 - Self-reports — a worker's, or my own from an earlier turn — are claims, never evidence.
@@ -71,7 +71,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 ## 1. VISION
 
-**Triage** — one line: what I read the task as, that the pipeline is opening, and the vision target. User confirms, corrects the target, or declines. Declined → recorded as "pipeline declined", work proceeds directly, no gate, no re-litigation.
+**Triage** — one line: what I read the idea as, that the pipeline is opening, and the vision target. User confirms, corrects the target, or declines. Declined → recorded as "pipeline declined", work proceeds directly, no gate, no re-litigation.
 
 **Rubberduck** — one question at a time, each waiting for its answer before the next. I open with my best draft of the vision from evidence, assumptions labelled, and question only what is genuinely uncertain. The loop ends when:
 
@@ -93,7 +93,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 **Produces**
 
 - per vision outcome: what already does this — libraries, products, services, papers, specs — and what that means for us
-- pivots: what would make the undertaking fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement — with the reason each was taken or rejected
+- pivots: what would make the idea fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement — with the reason each was taken or rejected
 - prior art: candidate solutions with licence, maturity, maintenance state, cost, and why we would or would not adopt each
 - claims that this is impossible or has never been done: recorded as inputs, never as rulings
 - practice: spec, RFC or vendor guidance first; a source beats an article, an article beats an opinion
@@ -143,9 +143,9 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 **Produces, in this order**
 
-1. **Decomposition** — an estimate against the cycle ceiling: 5 files and 400 changed lines by default, set per slice in the ledger. Over it, the undertaking is cut into slices: each a full pipeline run, each leaving the system working, ordered riskiest first, with the seams between them pinned. Under it, the verdict is "single cycle".
-2. **Seams** — the interfaces between slices, pinned. Changing one later is a renegotiation, never a slice's private choice.
-3. **Design of the current slice only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the slice, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
+1. **Decomposition** — an estimate against the cycle ceiling: 5 files and 400 changed lines by default, set per idea in the ledger. Over it, the idea is split into a sequence of smaller ideas, each a full pipeline run, each leaving the system working, ordered riskiest first, with the seams between them pinned. Under it, the verdict is "single cycle".
+2. **Seams** — the interfaces between ideas, pinned. Changing one later is a renegotiation, never an idea's private choice.
+3. **Design of the current idea only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the idea, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
 4. **Traceability, both directions** — every vision outcome maps to at least one design element; every design element names the outcome it serves or the necessity it satisfies.
 
 **Rules**
@@ -155,50 +155,50 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Design against INWARD RESEARCH receipts. An assumption not in evidence sends the phase back, not forward.
 - Every abstraction pays for itself. No speculative generality, no standalone refactor.
 
-**Gate** — **coverage:** every outcome mapped, every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** a slice plan is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
+**Gate** — **coverage:** every outcome mapped, every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea splits, the split is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
 
 ## 5. SPLIT
 
-**Purpose** — cut the current slice into lanes that can be executed and verified without interfering with each other.
+**Purpose** — cut the current idea into tasks that can be executed and verified without interfering with each other.
 
 **Produces**
 
-- **lane list** — per lane: closed file set · the design elements it implements · interfaces consumed and provided, as pinned · exit condition, meaning the tests that encode it
-- **relations** — disjoint lanes run at once; any pair sharing a file is sequenced explicitly, with the order written down
+- **task list** — per task: closed file set · the design elements it implements · interfaces consumed and provided, as pinned · exit condition, meaning the tests that encode it
+- **relations** — disjoint tasks run at once; any pair sharing a file is sequenced explicitly, with the order written down
 - **merge order**, and where the pinned interfaces get checked after merge
-- **shared files** — a lane that must touch one waits for the extraction designed in ARCHITECT, or the slice goes back there; nothing is extracted privately inside a lane
+- **shared files** — a task that must touch one waits for the extraction designed in ARCHITECT, or the idea goes back there; nothing is extracted privately inside a task
 
 **Rules**
 
-- Disjoint by construction. The closed file list is computed per lane; a shared file forces sequencing or extraction.
-- At most three lanes in flight. Concurrency beyond that costs more verification than it returns.
-- A lane owns its code and its tests. Splitting tests away from the implementation is how tests come to describe imagined code instead of required behaviour.
-- A lane over the cycle ceiling means the slice was mis-sized → back to ARCHITECT.
+- Disjoint by construction. The closed file list is computed per task; a shared file forces sequencing or extraction.
+- At most three tasks in flight. Concurrency beyond that costs more verification than it returns.
+- A task owns its code and its tests. Splitting tests away from the implementation is how tests come to describe imagined code instead of required behaviour.
+- A task over the cycle ceiling means the idea was mis-sized → back to ARCHITECT.
 
-**Gate** — **disjointness:** the lane file sets compared mechanically, intersection empty. **Coverage:** the union of lane sets equals the slice's file list, nothing dropped. **Briefability:** each lane executable from a self-contained brief, by a worker with no access to the other lanes' context. **Ordering:** every non-disjoint pair sequenced in writing. Technical — no user gate.
+**Gate** — **disjointness:** the task file sets compared mechanically, intersection empty. **Coverage:** the union of task sets equals the idea's file list, nothing dropped. **Briefability:** each task executable from a self-contained brief, by a worker with no access to the other tasks' context. **Ordering:** every non-disjoint pair sequenced in writing. Technical — no user gate.
 
 ## 6. DISPATCH
 
-**Purpose** — turn each lane into a brief a worker can execute without asking anything, then send it and hold the line while it runs.
+**Purpose** — turn each task into a brief a worker can execute without asking anything, then send it and hold the line while it runs.
 
-**Brief anatomy** — the lane's scope in one line and its exit condition · closed file list with `file:line` anchors verified in INWARD RESEARCH · pinned interfaces as verbatim signature text, never a description of them · the tests to write, stated as behaviour · excluded neighbours · the project's test command · read limit: the closed file list and its imports, nothing exploratory · the deviation rule verbatim · done definition: the exact state and outputs to return.
+**Brief anatomy** — the task's scope in one line and its exit condition · closed file list with `file:line` anchors verified in INWARD RESEARCH · pinned interfaces as verbatim signature text, never a description of them · the tests to write, stated as behaviour · excluded neighbours · the project's test command · read limit: the closed file list and its imports, nothing exploratory · the deviation rule verbatim · done definition: the exact state and outputs to return.
 
 **Test briefs** — stub every network path the unit touches: on setup, on interaction, and on the error path. Error-path tests abort before any call, so a raising stub proves the request is never reached. Assert the resulting state, not the absence of an exception. An unstubbed path is how a guard-kill later passes for the wrong reason.
 
 **Rules**
 
 - Design decisions are never delegated. A worker that needs one stops and reports.
-- One brief per lane; no brief spans two lanes.
+- One brief per task; no brief spans two tasks.
 - Workers report blockers to the lead, never to the user, and never re-scope.
 - A blocked or partial return belongs to DISPATCH: re-brief it, or send it back to ARCHITECT if the design is at fault. VERIFY only ever sees work claimed complete.
 
-**Solo mode** — no workers: the brief is the lane's exit condition, and the lanes run in the written order. Same discipline, no paperwork.
+**Solo mode** — no workers: the brief is the task's exit condition, and the tasks run in the written order. Same discipline, no paperwork.
 
-**Gate** — each brief read as a stranger would, against a mechanical checklist: closed file list · interfaces verbatim · test command · read limit · deviation rule · done definition. One brief per lane; nothing dispatched until its sequenced predecessor has integrated. Technical — no user gate.
+**Gate** — each brief read as a stranger would, against a mechanical checklist: closed file list · interfaces verbatim · test command · read limit · deviation rule · done definition. One brief per task; nothing dispatched until its sequenced predecessor has integrated. Technical — no user gate.
 
 ## 7. VERIFY
 
-**Purpose** — establish by my own execution that the delivered lane does what the design says, and that its tests would catch it if it didn't.
+**Purpose** — establish by my own execution that the delivered task does what the design says, and that its tests would catch it if it didn't.
 
 **Actions, per delivered unit**
 
@@ -206,7 +206,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - run the full suite, never the focused files the worker was told to run
 - **guard-kill** — disable one guard the tests claim to cover → demand RED for that reason → restore → GREEN. Kill results must be attributable: a RED from broken stubs or a real socket proves nothing
 - **fixture check** — any parser or renderer of third-party output carries a real-payload test; measurement assertions check shape, and have been observed failing
-- **dogfood, mandatory on any user-facing surface** — load the `dogfood` skill and walk the lane's path the way a user would, with its evidence and reporting discipline; for anything that renders, measure the output rather than merely confirming it exists
+- **dogfood, mandatory on any user-facing surface** — load the `dogfood` skill and walk the delivered work's path the way a user would, with its evidence and reporting discipline; for anything that renders, measure the output rather than merely confirming it exists
 - **user-reported defects** — the report is the specification; reproduce it before theorising, then hand the investigation to `systematic-debugging`. A failing test on the user's path is the default reproduction; where no test seam reaches the symptom, the tightest available repro is acceptable only if the ledger names it and names the gap. Where the symptom is a quantity — how much, how many, how long, where — measure the value, not its presence
 - **scratch sweep** — untracked residue is suspect until proven a dependency
 
@@ -220,18 +220,18 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 ## 8. INTEGRATE
 
-**Purpose** — fold the verified lane into the codebase so the system is whole and better than before, then close the ledger entry.
+**Purpose** — fold the verified task into the codebase so the system is whole and better than before, then close the ledger entry.
 
 **Actions**
 
-- merge in the written order, running the full suite after each merge — a green lane can still break the codebase on contact
-- check the pinned seams: every interface as designed, no lane quietly widened one. A seam that moved is a design amendment recorded as such, never a merge detail
+- merge in the written order, running the full suite after each merge — a green task can still break the codebase on contact
+- check the pinned seams: every interface as designed, no task quietly widened one. A seam that moved is a design amendment recorded as such, never a merge detail
 - run it, let the user use it, take the feel-check
-- commit only after the feel-check passes, with a message naming the slice and the vision outcome it serves
+- commit only after the feel-check passes, with a message naming the idea and the vision outcome it serves
 - ledger entry: what shipped · what was proven · what was deferred · the gate receipts
-- **programme close**, when this was the final slice: every vision outcome traced to a shipped slice, the system exercised end to end, seams checked against what was pinned
+- **close-out**, when this was the last task of the last idea: every vision outcome traced to shipped work, the system exercised end to end, seams checked against what was pinned
 
-**Branches** — a concurrency tool, not a structure. One checkout by default, lanes committing in the written order. A branch or a second checkout exists only while two lanes are in flight, or when a change must be revertable as a unit; it is merged or discarded before the slice's feel-check, never left open.
+**Branches** — a concurrency tool, not a structure. One checkout by default, tasks committing in the written order. A branch or a second checkout exists only while two tasks are in flight, or when a change must be revertable as a unit; it is merged or discarded before the idea's feel-check, never left open.
 
 **Rules**
 
@@ -239,4 +239,4 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Merge is not where anything gets fixed. A defect found here goes back a phase.
 - Nothing is done until the feel-check answers.
 
-**Gate** — the user's feel-check, unambiguous, same standard as VISION: silence is not consent. Passing it closes the cycle and writes the commit. If slices remain, the next opens at VISION in inheritance mode.
+**Gate** — the user's feel-check, unambiguous, same standard as VISION: silence is not consent. Passing it closes the task and writes the commit. If the idea was split, the next one opens at VISION in inheritance mode.

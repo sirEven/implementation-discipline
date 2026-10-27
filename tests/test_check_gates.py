@@ -46,8 +46,8 @@ def phase(n, name, body="**Produces** — something.", gate=True):
     return block
 
 
-class Slice:
-    """A temporary git repo holding one slice ledger."""
+class Idea:
+    """A temporary git repo holding one idea's ledger."""
 
     def __init__(self):
         self._tmp = tempfile.TemporaryDirectory()
@@ -110,121 +110,121 @@ DEFAULT_PHASES = [
 @unittest.skipUnless(GIT, "git is required")
 class CheckGates(unittest.TestCase):
     def setUp(self):
-        self.slice = Slice()
+        self.idea = Idea()
 
     def tearDown(self):
-        self.slice.close()
+        self.idea.close()
 
     def test_clean_ledger_passes(self):
-        self.slice.ledger()
-        code, out, _ = run(self.slice.root)
+        self.idea.ledger()
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 0, out)
         self.assertIn("phases 1,2,3,4,5,6,7,8 present", out)
         self.assertEqual(failed(out), [])
 
     def test_file_outside_closed_list_fails(self):
-        self.slice.ledger()
-        (self.slice.root / "src" / "intruder.py").write_text("x = 1\n")
-        code, out, _ = run(self.slice.root)
+        self.idea.ledger()
+        (self.idea.root / "src" / "intruder.py").write_text("x = 1\n")
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("closed file list", failed(out))
         self.assertIn("src/intruder.py", out)
 
     def test_untracked_residue_fails(self):
-        self.slice.ledger()
-        (self.slice.root / "probe_dump.json").write_text("{}\n")
-        code, out, _ = run(self.slice.root)
+        self.idea.ledger()
+        (self.idea.root / "probe_dump.json").write_text("{}\n")
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("scratch residue", failed(out))
 
     def test_skip_marker_fails(self):
-        self.slice.ledger(closed=("src/a.py", "src/tests.py"))
-        (self.slice.root / "src" / "tests.py").write_text(
+        self.idea.ledger(closed=("src/a.py", "src/tests.py"))
+        (self.idea.root / "src" / "tests.py").write_text(
             "import pytest\n\n@pytest.mark.skip\ndef test_add():\n    assert True\n"
         )
-        code, out, _ = run(self.slice.root)
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("skip / focus markers", failed(out))
 
     def test_missing_gate_fails(self):
         phases = list(DEFAULT_PHASES)
         phases[3] = (4, "ARCHITECT", "**Produces** — design.")
-        self.slice.ledger(phases=[(n, name, *rest) for n, name, *rest in phases])
+        self.idea.ledger(phases=[(n, name, *rest) for n, name, *rest in phases])
         # strip the gate from ARCHITECT
-        note = self.slice.root / "Implementation/demo/note.md"
+        note = self.idea.root / "Implementation/demo/note.md"
         text = note.read_text().replace(
             "## 4. ARCHITECT\n\n**Produces** — design.\n\n**Gate** — met.",
             "## 4. ARCHITECT\n\n**Produces** — design.",
         )
         note.write_text(text)
-        code, out, _ = run(self.slice.root)
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("4", out.split("missing gate:")[1].split("\n")[0])
 
     def test_duplicate_phase_heading_fails(self):
-        self.slice.ledger(extra="## 1. VISION\n\n**Produces** — again.\n\n**Gate** — met.")
-        code, out, _ = run(self.slice.root)
+        self.idea.ledger(extra="## 1. VISION\n\n**Produces** — again.\n\n**Gate** — met.")
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("phase heading appears twice: 1", out)
 
     def test_receiptless_bullet_fails(self):
         phases = list(DEFAULT_PHASES)
         phases[2] = (3, "INWARD RESEARCH", "- a claim with no receipt at all")
-        self.slice.ledger(phases=[(n, name, *rest) for n, name, *rest in phases])
-        code, out, _ = run(self.slice.root)
+        self.idea.ledger(phases=[(n, name, *rest) for n, name, *rest in phases])
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("receipts on claims", failed(out))
 
     def test_red_suite_fails(self):
-        self.slice.ledger(test_command=f'{sys.executable} -c "import sys; sys.exit(3)"')
-        code, out, _ = run(self.slice.root)
+        self.idea.ledger(test_command=f'{sys.executable} -c "import sys; sys.exit(3)"')
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("suite green", failed(out))
 
     def test_no_tests_flag_skips_suite(self):
-        self.slice.ledger(test_command=f'{sys.executable} -c "import sys; sys.exit(3)"')
-        code, out, _ = run(self.slice.root, "--no-tests")
+        self.idea.ledger(test_command=f'{sys.executable} -c "import sys; sys.exit(3)"')
+        code, out, _ = run(self.idea.root, "--no-tests")
         self.assertEqual(code, 0, out)
         self.assertIn("--no-tests", out)
 
     def test_missing_feel_check_fails(self):
-        self.slice.ledger(feel=False)
-        code, out, _ = run(self.slice.root)
+        self.idea.ledger(feel=False)
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("feel-check recorded", failed(out))
 
     def test_ceiling_from_ledger_and_flag_override(self):
-        self.slice.ledger(max_files=0, max_lines=400)
-        code, out, _ = run(self.slice.root)
+        self.idea.ledger(max_files=0, max_lines=400)
+        code, out, _ = run(self.idea.root)
         self.assertEqual(code, 1)
         self.assertIn("files ledger", out)
-        code, out, _ = run(self.slice.root, "--max-files", "5")
+        code, out, _ = run(self.idea.root, "--max-files", "5")
         self.assertEqual(code, 0, out)
         self.assertIn("files flag", out)
 
     def test_exit_two_without_ledger(self):
-        shutil.rmtree(self.slice.root / "Implementation", ignore_errors=True)
-        code, _, err = run(self.slice.root)
+        shutil.rmtree(self.idea.root / "Implementation", ignore_errors=True)
+        code, _, err = run(self.idea.root)
         self.assertEqual(code, 2)
         self.assertIn("no Implementation", err)
 
     def test_exit_two_with_several_ledgers(self):
-        self.slice.ledger()
+        self.idea.ledger()
         shutil.copytree(
-            self.slice.root / "Implementation/demo",
-            self.slice.root / "Implementation/other",
+            self.idea.root / "Implementation/demo",
+            self.idea.root / "Implementation/other",
         )
-        code, _, err = run(self.slice.root)
+        code, _, err = run(self.idea.root)
         self.assertEqual(code, 2)
         self.assertIn("several ledgers", err)
         # disambiguated: it runs, and the sibling ledger's uncommitted files
         # are then residue outside this slice's closed list
-        code, out, _ = run(self.slice.root, "--slug", "other")
+        code, out, _ = run(self.idea.root, "--slug", "other")
         self.assertIn("ledger  Implementation/other/note.md", out)
         self.assertIn("closed file list", failed(out))
 
     def test_exit_two_outside_a_repo(self):
-        plain = Path(self.slice._tmp.name) / "plain"
+        plain = Path(self.idea._tmp.name) / "plain"
         plain.mkdir()
         code, _, err = run(plain)
         self.assertEqual(code, 2)

@@ -99,11 +99,8 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Produces**
 
-- per part of the vision: what already does this — libraries, products, services, papers, specs — and what that means for us
-- pivots: what would make the idea fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement — with the reason each was taken or rejected
-- prior art: candidate solutions with licence, maturity, maintenance state, cost, and why we would or would not adopt each
-- claims that this is impossible or has never been done: recorded as inputs, never as rulings
-- practice: spec, RFC or vendor guidance first; a source beats an article, an article beats an opinion
+- whether the problem is already solved, in whatever form — a library, a paper, a standard, a product, something else — and, for anything close, what adopting it would cost in licence, maturity, maintenance and fit, and why we would or would not
+- pivots: possible directions that could make the idea fundamentally different — a different data model, a managed service, conforming to an existing standard, dropping a requirement, something else.
 
 **Rules**
 
@@ -111,6 +108,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 - No feasibility judgement about our code. Whether we can build it is INWARD RESEARCH's answer, on our own evidence.
 - Outside pessimism is recorded, never obeyed. A source that says "this cannot be done" has not read our repository.
 - Read-only.
+- A source beats an article, an article beats an opinion; spec or vendor guidance first.
 - Stop when every part of the vision has been compared and every open question carries a source, or an explicit "nothing exists — we decide".
 
 **Gate** — two exits, and only two:

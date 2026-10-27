@@ -19,7 +19,7 @@ VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISP
 
 ## Install
 
-Any agent that reads the [agentskills.io](https://agentskills.io/specification) `SKILL.md` format: copy this directory into its skills folder. Frontmatter keys specific to Hermes sit under `metadata.hermes` and are ignored elsewhere.
+Any agent that reads the [agentskills.io](https://agentskills.io/specification) `SKILL.md` format: copy this directory into its skills folder. Host-specific frontmatter sits under `metadata.hermes` and is ignored by tools that don't read it.
 
 ## Scripts
 

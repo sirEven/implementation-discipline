@@ -104,7 +104,6 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 **Rules**
 
 - Read-only. Repairs found anywhere are reported, never applied.
-- Outward admits only project-alien input. Anything about code we already run — its source, its issues, its changelog — is inward.
 - Every finding ties to a decision it enables, or it is trivia.
 - Questions come from the VISION and the map. RESEARCH may add one only by naming the design decision it blocks.
 - Stop when every open question carries a source, or an explicit "no answer exists — this is a decision".

@@ -258,7 +258,7 @@ def main() -> int:
             + (f" — {tail[-1][:160]}" if tail else ""),
         )
 
-    # 7 — every phase section present carries its gate
+    # 7 — every phase section present carries its gate, and no phase is duplicated
     present = []
     gated, ungated = [], []
     for n in range(1, 9):
@@ -267,9 +267,12 @@ def main() -> int:
             continue
         present.append(n)
         (gated if "**Gate**" in body else ungated).append(str(n))
-    verdict = FAIL if ungated else (PASS if present else SKIP)
+    headings = re.findall(r"^## (\d+)\.[^\n]*$", text, re.M)
+    dupes = sorted({h for h in headings if headings.count(h) > 1})
+    verdict = FAIL if (ungated or dupes) else (PASS if present else SKIP)
     add(FORM, "phase gates present", verdict,
-        f"phases {','.join(map(str, present)) or 'none'} present; missing gate: {','.join(ungated) or 'none'}")
+        f"phases {','.join(map(str, present)) or 'none'} present; missing gate: {','.join(ungated) or 'none'}"
+        + (f"; phase heading appears twice: {','.join(dupes)} — amend in place" if dupes else ""))
 
     # 8 — evidence refs resolve and are not empty
     gone, empty = [], []

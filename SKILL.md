@@ -82,6 +82,8 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Produces** — a ledger in the repo the work touches, at `Implementation/<slug>/`: `note.md` — problem · who and situation · observable outcome · non-goals · hard constraints · unknowns, each marked answered or accepted-risk — and `evidence/` for captured payloads, screenshots, logs and baseline runs, each named by what it proves. No quality bar, no abandon condition. Later phases append to the same ledger.
 
+**Amendments** — a vision amended after an OUTWARD return is edited in place, and the finding that forced the return is recorded in OUTWARD RESEARCH. A second VISION block is never legal; git holds the trail.
+
 **Gate** — unambiguous approval in whatever form the user chooses: a plain yes, an edit to the note, an amendment spoken in the same breath. Silence, timeout or a polite non-answer is not approval → re-ask, no cap. Ambiguity test: if acting on it needs "did you mean…", it wasn't a gate. Passing it admits OUTWARD RESEARCH only.
 
 ## 2. OUTWARD RESEARCH

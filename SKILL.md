@@ -84,7 +84,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Purpose** — establish what exists before anything is designed: what our code does, what our dependencies do, what the field has already solved. ARCHITECT should not have to guess at any of it.
 
-**Inward — code truth**
+**Inward — the project, code truth**
 
 - files to change: path, contents, exact anchor line, each read in full
 - entry paths to the touched code, each traced to where it leaves the codebase
@@ -93,12 +93,13 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 - contracts: real payloads and formats, with a captured sample
 - baseline: current suite result; a reproduction for defect work
 
-**Outward — the world**
+**Outward — the world, existing resources**
 
-- installed dependency source: the version we actually run — not the development branch, not the docs site. Framework internals the change relies on get the same treatment.
-- upstream channel: open issues, PRs, changelog and migration notes; whether this is already being built, or deliberately rejected upstream.
-- prior art: libraries, repos and patterns that already solve the vision's problem — licence, maturity, maintenance state, why we would or wouldn't adopt.
-- practice: spec, RFC or vendor guidance first; a source beats an article, an article beats an opinion.
+- the problem solved elsewhere: search outside our stack — libraries, products, services, papers, specs — for something that already does this, before anything is designed
+- first principles: what would make the undertaking fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement. Record the pivot and the reason it was taken or rejected; one that changes the vision goes back to VISION
+- prior art: candidate solutions with licence, maturity, maintenance state, cost, and why we would or would not adopt each
+- practice: spec, RFC or vendor guidance first; a source beats an article, an article beats an opinion
+- dependencies we already run: read the source of the version in use, not the development branch and not the docs site · open issues, PRs, changelog and migration notes — whether this is already being built, or deliberately rejected upstream
 
 **Rules**
 
@@ -107,7 +108,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 - Questions come from the VISION and the map. RESEARCH may add one only by naming the design decision it blocks.
 - Stop when every open question carries a source, or an explicit "no answer exists — this is a decision".
 
-**Produces** — appended to the ledger: the map, plus three lists — what we now know · what we will not build because it exists · what remains a decision.
+**Produces** — appended to the ledger: the map, plus four lists — what we now know · what we will not build because it exists · pivots considered, with the reason each was taken or rejected · what remains a decision.
 
 **Gate** — spot-check: two claims picked at random, re-verified at their source, disk for internal and the cited artifact for external. Sufficiency test: ARCHITECT can answer its design questions from this note alone, without a browser and without re-reading source. Unanswered external questions appear as decisions, never as silence. A wrong claim reopens the phase.
 

@@ -214,14 +214,15 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 **Purpose** — establish by my own execution that the delivered task does what the design says, and that its tests would catch it if it didn't.
 
-**Actions, per delivered unit**
+**Actions, per task**
 
 - read the diff file by file, all of it
 - run the full suite, never the focused files the worker was told to run
 - **guard-kill** — disable one guard the tests claim to cover → demand RED for that reason → restore → GREEN. Kill results must be attributable: a RED from broken stubs or a real socket proves nothing
-- **fixture check** — any parser or renderer of third-party output carries a real-payload test; measurement assertions check shape, and have been observed failing
+- **fixture check** — any parser or renderer of third-party output carries a real-payload test; a measurement assertion is proved by re-injecting the bug it guards, demanding FAIL, then restoring
 - **dogfood, mandatory on any user-facing surface** — load the `dogfood` skill and walk the delivered work's path the way a user would, with its evidence and reporting discipline; for anything that renders, measure the output rather than merely confirming it exists
-- **user-reported defects** — the report is the specification; reproduce it before theorising, then hand the investigation to `systematic-debugging`. A failing test on the user's path is the default reproduction; where no test seam reaches the symptom, the tightest available repro is acceptable only if the ledger names it and names the gap. Where the symptom is a quantity — how much, how many, how long, where — measure the value, not its presence
+- **user-reported defects** — the report is the specification: reproduce it before theorising, then hand the investigation to `systematic-debugging`. A failing test on the user's path is the default reproduction; where no test seam reaches the symptom, the tightest available repro is acceptable only if the ledger names it and names the gap
+- **quantities** — where the symptom is a measure rather than a state — how much, how many, how long, where — measure the value, not its presence
 - **scratch sweep** — untracked residue is suspect until proven a dependency
 
 **Rules**
@@ -230,7 +231,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - A repair made directly is legitimate only when it is smaller than the brief that would describe it — a typo, a rename, a missing import. Still RED-first, still recorded in the ledger with its own verification rerun. Anything larger goes back, because a silent repair hides a broken brief.
 - Nothing is signed because the suite is green. It is signed because the guard died and the path ran.
 
-**Gate** — every action above performed, with receipts in the ledger: the commands, their output, the measurements, the guard that was killed and what it produced. An action not done is written down as not done, never implied by silence. Technical — no user gate.
+**Gate** — every action that applies performed, with receipts in the ledger: the commands, their output, the measurements, the guard that was killed and what it produced. An action not done is written down as not done, never implied by silence. Technical — no user gate.
 
 ## 8. INTEGRATION
 

@@ -235,23 +235,22 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 ## 8. INTEGRATION
 
-**Purpose** — fold the verified task into the codebase so the system is whole and better than before, then close the ledger entry.
+**Purpose** — land the verified task in the codebase so the system is whole and better than before, then close the task and its ledger entry.
 
-**Actions**
+**Actions, before the gate**
 
-- merge in the written order, running the full suite after each merge — a green task can still break the codebase on contact
-- check the pinned seams: every interface as designed, no task quietly widened one. A seam that moved is a design amendment recorded as such, never a merge detail
-- run it, let the user use it, take the feel-check
-- commit only after the feel-check passes, with a message naming the idea and the part of the vision it serves
-- ledger entry: what shipped · what was proven · what was deferred · the gate receipts
-- **close-out**, when this was the last task of the last idea and no idea of a composite is left pending: the system exercised end to end, every seam checked against what was pinned, and the vision met
+- land each task in the written order, running the full suite after each landing — a green task can still break the codebase on contact
+- when the idea decomposed, check the pinned seams: every interface as designed, no task quietly widened one. A seam that moved is a design amendment recorded as such, never a landing detail
+- run it, and let the user use it
+
+**Close-out** — when this was the last task of the last idea and no idea of a composite is left pending: the system exercised end to end, every seam checked against what was pinned, and the vision met.
 
 **Branches** — a concurrency tool, not a structure. One checkout by default, tasks committing in the written order. A branch or a second checkout exists only while two tasks are in flight, or when a change must be revertable as a unit; it is merged or discarded before the idea's feel-check, never left open.
 
 **Rules**
 
 - Never anything over a red or skipped test — see standing rules.
-- Merge is not where anything gets fixed. A defect found here goes back a phase.
+- Landing is not where anything gets fixed. A defect found here goes back a phase.
 - Nothing is done until the feel-check answers.
 
-**Gate** — the user's feel-check, unambiguous, same standard as VISION: silence is not consent. Passing it closes the task and writes the commit. If the idea decomposed into a composite, its next idea opens at VISION in inheritance mode.
+**Gate** — the user's feel-check, unambiguous, same standard as VISION: silence is not consent. Passing it writes the commit — named for the idea and the part of the vision it serves — and the ledger entry: what shipped, what was proven, what was deferred, the gate receipts. The next task in the order opens at DISPATCH; when none remains the idea closes, and if it belonged to a composite, that composite's next idea opens at VISION in inheritance mode.

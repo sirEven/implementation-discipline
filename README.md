@@ -17,6 +17,12 @@ VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISP
 | VERIFY | proof by execution: the diff read, the suite run, a guard killed, the user's path walked |
 | INTEGRATE | merge in written order, seam check, feel-check, commit |
 
+## Terms
+
+**Slice** — one full run of the eight phases: an undertaking small enough to design, build and verify in a single pass. When the work exceeds the cycle ceiling, ARCHITECT cuts it into slices, each leaving the system working, ordered riskiest first — and each slice then runs this whole pipeline on its own.
+
+**Lane** — a parallel unit inside a slice: a disjoint set of files handed to one self-contained brief. Lanes never cross slices.
+
 ## Install
 
 Any agent that reads the [agentskills.io](https://agentskills.io/specification) `SKILL.md` format: copy this directory into its skills folder. Host-specific frontmatter sits under `metadata.hermes` and is ignored by tools that don't read it.

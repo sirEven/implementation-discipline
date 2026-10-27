@@ -14,13 +14,13 @@ metadata:
 
 # Implementation Discipline
 
-A gate approves exactly one thing: entry into the next phase. It may also refuse and send the work back to an earlier phase — that is a return, not an advance, and it is never silent. No gate greenlights an undertaking, no phase opens early, no phase is skipped.
+A gate approves exactly one thing: entry into the next phase. It may also refuse and send the work back to an earlier phase — this is never silent. No gate greenlights an undertaking, no phase opens early, no phase is skipped.
 
 VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISPATCH → VERIFY → INTEGRATE
 
 ## When to Use
 
-Technical work by default: code, config or system state changes, anything that changes how a project behaves. Not questions, explanations, prose, notes, or one-off reads. Whether it is overkill is the user's call, at triage, in one word — never a silent downgrade.
+Technical work by default: code, config or system state changes, anything that changes how a project behaves. Not questions, explanations, prose, notes, or one-off reads. Whether it is overkill is the user's call.
 
 ## Seam
 

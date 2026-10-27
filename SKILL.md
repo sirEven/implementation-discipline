@@ -100,7 +100,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Produces**
 
-- per element of the vision: what already does this — libraries, products, services, papers, specs — and what that means for us
+- per part of the vision: what already does this — libraries, products, services, papers, specs — and what that means for us
 - pivots: what would make the idea fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement — with the reason each was taken or rejected
 - prior art: candidate solutions with licence, maturity, maintenance state, cost, and why we would or would not adopt each
 - claims that this is impossible or has never been done: recorded as inputs, never as rulings
@@ -108,11 +108,11 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Rules**
 
-- The VISION is the propellant. Questions derive from its elements and from nothing else.
+- The VISION is the propellant. Questions derive from its parts and from nothing else.
 - No feasibility judgement about our code. Whether we can build it is INWARD RESEARCH's answer, on our own evidence.
 - Outside pessimism is recorded, never obeyed. A source that says "this cannot be done" has not read our repository.
 - Read-only.
-- Stop when every element of the vision has been compared and every open question carries a source, or an explicit "nothing exists — we decide".
+- Stop when every part of the vision has been compared and every open question carries a source, or an explicit "nothing exists — we decide".
 
 **Gate** — two exits, and only two:
 
@@ -159,7 +159,6 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
    Either way the ledger records the estimate and what was granted.
 2. **Seams** — the interfaces between ideas, pinned. Changing one later is a renegotiation, never an idea's private choice.
 3. **Design of the current idea only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the idea, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
-4. **Traceability** — each design element names the vision line it serves. Anything serving none is cut as scope creep; a vision line no element serves reopens VISION, because the vision is not complete yet.
 
 **Rules**
 
@@ -168,7 +167,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Design against INWARD RESEARCH receipts. An assumption not in evidence sends the phase back, not forward.
 - Every abstraction pays for itself. No speculative generality, no standalone refactor.
 
-**Gate** — **coverage:** every vision line served by a design element, and every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea decomposes, the composite is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
+**Gate** — **coverage:** every file in the map is either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea decomposes, the composite is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
 
 ## 5. SPLIT
 
@@ -176,7 +175,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 **Produces**
 
-- **task list** — per task: closed file set · the design elements it implements · interfaces consumed and provided, as pinned · exit condition, meaning the tests that encode it
+- **task list** — per task: closed file set · the part of the design it builds · interfaces consumed and provided, as pinned · exit condition, meaning the tests that encode it
 - **relations** — disjoint tasks run at once; any pair sharing a file is sequenced explicitly, with the order written down
 - **merge order**, and where the pinned interfaces get checked after merge
 - **shared files** — a task that must touch one waits for the extraction designed in ARCHITECTURE, or the idea goes back there; nothing is extracted privately inside a task
@@ -242,7 +241,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - run it, let the user use it, take the feel-check
 - commit only after the feel-check passes, with a message naming the idea and the part of the vision it serves
 - ledger entry: what shipped · what was proven · what was deferred · the gate receipts
-- **close-out**, when this was the last task of the last idea and no idea of a composite is left pending: every element of the vision traced to shipped work, the system exercised end to end, seams checked against what was pinned
+- **close-out**, when this was the last task of the last idea and no idea of a composite is left pending: the system exercised end to end, every seam checked against what was pinned, and the vision met
 
 **Branches** — a concurrency tool, not a structure. One checkout by default, tasks committing in the written order. A branch or a second checkout exists only while two tasks are in flight, or when a change must be revertable as a unit; it is merged or discarded before the idea's feel-check, never left open.
 

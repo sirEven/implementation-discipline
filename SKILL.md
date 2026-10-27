@@ -89,6 +89,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 - files to change: path, contents, exact anchor line, each read in full
 - entry paths to the touched code, each traced to where it leaves the codebase
 - dependents: callers, importers, readers of the shape being changed
+- dependencies we already run: read the source of the version in use, not the development branch and not the docs site · open issues, PRs, changelog and migration notes — whether this is already being built, or deliberately rejected upstream
 - existing tests over the area, plus the command that runs them
 - contracts: real payloads and formats, with a captured sample
 - baseline: current suite result; a reproduction for defect work
@@ -99,7 +100,6 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 - first principles: what would make the undertaking fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement. Record the pivot and the reason it was taken or rejected; one that changes the vision goes back to VISION
 - prior art: candidate solutions with licence, maturity, maintenance state, cost, and why we would or would not adopt each
 - practice: spec, RFC or vendor guidance first; a source beats an article, an article beats an opinion
-- dependencies we already run: read the source of the version in use, not the development branch and not the docs site · open issues, PRs, changelog and migration notes — whether this is already being built, or deliberately rejected upstream
 
 **Rules**
 

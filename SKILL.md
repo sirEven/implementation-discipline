@@ -122,7 +122,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 **Purpose** — establish what exists inside the project and around it: the code, our dependencies, the contracts, the baseline. ARCHITECTURE should not have to guess at any of it.
 
-**Produces**
+**Produces — the map**
 
 - files to change: path, contents, exact anchor line, each read in full
 - entry paths to the touched code, each traced to where it leaves the codebase
@@ -131,13 +131,12 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - existing tests over the area, plus the command that runs them
 - contracts: real payloads and formats, with a captured sample
 - baseline: current suite result; a reproduction for defect work
-- what remains a decision, each with the design question it blocks
+- the decisions the map leaves open, each with the design question it blocks
 
 **Rules**
 
 - Read-only. Repairs found anywhere are reported, never applied.
-- Every finding ties to a decision it enables, or it is trivia.
-- Questions come from the VISION and the map; one that blocks no design decision is trivia.
+- Questions come from the VISION and the map; a question that blocks no listed decision is trivia.
 - Stop when every open question carries a source, or an explicit "no answer exists — this is a decision".
 
 **Gate** — spot-check: two claims picked at random, re-verified from disk. Sufficiency: ARCHITECTURE can answer its design questions from this map alone, without re-reading source. A wrong claim reopens the phase.

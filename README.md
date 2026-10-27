@@ -11,7 +11,7 @@ VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISP
 | VISION | agreed destination: problem, who it serves, observable outcome, non-goals, constraints, unknowns |
 | OUTWARD RESEARCH | the world against the vision: what already exists, pivots worth taking, claims that it cannot be done — may return to VISION as often as it takes |
 | INWARD RESEARCH | the project: files, entry paths, dependencies in use, contracts, baseline |
-| ARCHITECT | function-level design, and a plan to split an over-sized idea when it exceeds the cycle ceiling |
+| ARCHITECT | function-level design, and — when the idea exceeds the ceiling — either a composite or a raised ceiling |
 | SPLIT | tasks with disjoint file sets, sequenced where they touch the same file |
 | DISPATCH | one self-contained brief per task |
 | VERIFY | proof by execution: the diff read, the suite run, a guard killed, the user's path walked |
@@ -19,9 +19,11 @@ VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISP
 
 ## Terms
 
-**Idea** — one full run of the eight phases: a piece of intent small enough to design, build and verify in a single pass. When the idea exceeds the cycle ceiling, ARCHITECT splits it into a sequence of smaller ideas, each leaving the system working, ordered riskiest first — and each one then runs this whole pipeline on its own.
+**Idea** — one full run of the eight phases: a piece of intent small enough to design, build and verify in a single pass.
 
 **Task** — a parallel unit inside an idea: a disjoint set of files handed to one self-contained brief. Tasks never cross ideas.
+
+**Composite** — what an over-sized idea becomes when it decomposes instead of raising its ceiling: a record listing the ideas it produced, riskiest first, with the seams between them pinned. It runs no phases and closes when its last idea closes.
 
 ## Install
 
@@ -48,7 +50,7 @@ The checker reads these from the idea's ledger:
 
 It also reads the fenced `closed-files` block and the `feel-check:` line; both are described in SKILL.md.
 
-Two things that are not settings. The three-task limit is a rule of the pipeline, not a knob. And the ceiling is a trigger with teeth: the checker fails an idea that crosses it, which sends the work back to ARCHITECT for decomposition rather than letting it run long.
+Two things that are not settings. The three-task limit is a rule of the pipeline, not a knob. And the ceiling is a trigger with teeth: the checker fails an idea that crosses it, which sends the work back to ARCHITECT — where it either decomposes into a composite or runs at a raised ceiling.
 
 ## Tests
 

@@ -54,9 +54,17 @@ feel-check: APPROVED — "<their words>" — <ISO timestamp>
 
 and evidence as `evidence/<file>`.
 
+**Composites** — a composite carries `id: composite-k3f9x2`; every idea it produced carries `id: idea-k3f9x2#<position>`. Six characters from `23456789abcdefghjkmnpqrstuvwxyz`, generated once, regenerated if the id already appears under `Implementation/`. The composite's ledger lists what it produced:
+
+```
+ideas (riskiest first):
+  #1  auth-token-refresh        pending
+  #2  session-store-migration   pending
+```
+
 ## The mechanical half
 
-`scripts/check_gates.py` sits beside the phases and checks only what a machine can check exactly: closed file list, cycle ceiling, red suite, skip and focus markers in the diff, scratch residue, a gate under every phase present, evidence integrity, receipts on claims, feel-check recorded. Run it before claiming any gate; unconditionally at VERIFY and INTEGRATE.
+`scripts/check_gates.py` sits beside the phases and checks only what a machine can check exactly: closed file list, the ceiling, red suite, skip and focus markers in the diff, scratch residue, a gate under every phase present, evidence integrity, receipts on claims, feel-check recorded. Run it before claiming any gate; unconditionally at VERIFY and INTEGRATE.
 
 Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill correctness, brief and design sufficiency, seam fidelity, rendering truth, whether the vision was right, whether a recorded approval was genuine. Exit 0 is the absence of mechanical defects, never a signature.
 
@@ -143,7 +151,12 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 **Produces, in this order**
 
-1. **Decomposition** — an estimate against the cycle ceiling: 5 files and 400 changed lines by default, set per idea in the ledger. Over it, the idea is split into a sequence of smaller ideas, each a full pipeline run, each leaving the system working, ordered riskiest first, with the seams between them pinned. Under it, the verdict is "single cycle".
+1. **Decomposition** — an estimate against the ceiling: 5 files and 400 changed lines by default, set per idea in the ledger. Under it, design proceeds. Over it, two options are priced and the gate chooses between them:
+
+   - **composite** — the idea decomposes into a composite. Its ledger lists the ideas it produced, riskiest first, one line each with a status, and pins the seams between them. Each of those is an idea like any other, opening at VISION in inheritance mode with the composite's stamp in its header. The composite closes when its last idea closes.
+   - **raise** — the idea runs whole at a ceiling of the estimate plus a fifth, rounded up to a whole file and to ten lines. No upper bound; the gate carries the decision.
+
+   Either way the ledger records the estimate and what was granted.
 2. **Seams** — the interfaces between ideas, pinned. Changing one later is a renegotiation, never an idea's private choice.
 3. **Design of the current idea only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the idea, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
 4. **Traceability, both directions** — every vision outcome maps to at least one design element; every design element names the outcome it serves or the necessity it satisfies.
@@ -155,7 +168,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Design against INWARD RESEARCH receipts. An assumption not in evidence sends the phase back, not forward.
 - Every abstraction pays for itself. No speculative generality, no standalone refactor.
 
-**Gate** — **coverage:** every outcome mapped, every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea splits, the split is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
+**Gate** — **coverage:** every outcome mapped, every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea decomposes, the composite is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
 
 ## 5. SPLIT
 
@@ -172,8 +185,8 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 - Disjoint by construction. The closed file list is computed per task; a shared file forces sequencing or extraction.
 - At most three tasks in flight. Concurrency beyond that costs more verification than it returns.
-- A task owns its code and its tests. Splitting tests away from the implementation is how tests come to describe imagined code instead of required behaviour.
-- A task over the cycle ceiling means the idea was mis-sized → back to ARCHITECT.
+- A task owns its code and its tests. Separating tests from the implementation is how tests come to describe imagined code instead of required behaviour.
+- A task over the ceiling means the idea was mis-sized → back to ARCHITECT.
 
 **Gate** — **disjointness:** the task file sets compared mechanically, intersection empty. **Coverage:** the union of task sets equals the idea's file list, nothing dropped. **Briefability:** each task executable from a self-contained brief, by a worker with no access to the other tasks' context. **Ordering:** every non-disjoint pair sequenced in writing. Technical — no user gate.
 
@@ -229,7 +242,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - run it, let the user use it, take the feel-check
 - commit only after the feel-check passes, with a message naming the idea and the vision outcome it serves
 - ledger entry: what shipped · what was proven · what was deferred · the gate receipts
-- **close-out**, when this was the last task of the last idea: every vision outcome traced to shipped work, the system exercised end to end, seams checked against what was pinned
+- **close-out**, when this was the last task of the last idea and no idea of a composite is left pending: every vision outcome traced to shipped work, the system exercised end to end, seams checked against what was pinned
 
 **Branches** — a concurrency tool, not a structure. One checkout by default, tasks committing in the written order. A branch or a second checkout exists only while two tasks are in flight, or when a change must be revertable as a unit; it is merged or discarded before the idea's feel-check, never left open.
 
@@ -239,4 +252,4 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Merge is not where anything gets fixed. A defect found here goes back a phase.
 - Nothing is done until the feel-check answers.
 
-**Gate** — the user's feel-check, unambiguous, same standard as VISION: silence is not consent. Passing it closes the task and writes the commit. If the idea was split, the next one opens at VISION in inheritance mode.
+**Gate** — the user's feel-check, unambiguous, same standard as VISION: silence is not consent. Passing it closes the task and writes the commit. If the idea decomposed into a composite, its next idea opens at VISION in inheritance mode.

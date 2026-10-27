@@ -235,7 +235,7 @@ def main() -> int:
     # 7 — every phase section present carries its gate
     present = []
     gated, ungated = [], []
-    for n in range(1, 8):
+    for n in range(1, 9):
         body = section(text, n)
         if body is None:
             continue
@@ -262,9 +262,9 @@ def main() -> int:
     else:
         add(FORM, "evidence integrity", SKIP, "no evidence/ reference in the ledger")
 
-    # 9 — receipts on research and verify bullets
+    # 9 — receipts on outward research, inward research and verify bullets
     offenders = []
-    for n in (2, 6):
+    for n in (2, 3, 7):
         body = section(text, n)
         if body is None:
             continue

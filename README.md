@@ -1,15 +1,16 @@
 # Implementation Discipline
 
-A skill for coding agents. Seven phases, each with a gate that admits entry into the next phase and nothing more.
+A skill for coding agents. Eight phases, each with a gate that admits entry into the next phase and nothing more.
 
 ```
-VISION → RESEARCH → ARCHITECT → SPLIT → DISPATCH → VERIFY → INTEGRATE
+VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISPATCH → VERIFY → INTEGRATE
 ```
 
 | phase | output |
 |---|---|
 | VISION | agreed destination: problem, who it serves, observable outcome, non-goals, constraints, unknowns |
-| RESEARCH | what already exists — the code, the installed dependencies, prior art — with receipts |
+| OUTWARD RESEARCH | the world against the vision: what already exists, pivots worth taking, claims that it cannot be done — may return to VISION as often as it takes |
+| INWARD RESEARCH | the project: files, entry paths, dependencies in use, contracts, baseline |
 | ARCHITECT | function-level design, and a slice plan when the work exceeds the cycle ceiling |
 | SPLIT | lanes with disjoint file sets, sequenced where they touch the same file |
 | DISPATCH | one self-contained brief per lane |

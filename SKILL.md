@@ -1,7 +1,7 @@
 ---
 name: implementation-discipline
-description: "Use for technical work: seven gated phases, no skips."
-version: 1.0.0
+description: "Use for technical work: eight gated phases, no skips."
+version: 2.0.0
 author: sirEven (GitHub), Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
@@ -14,9 +14,9 @@ metadata:
 
 # Implementation Discipline
 
-A gate approves exactly one thing: entry into the next phase. No gate greenlights an undertaking, no phase opens early, no phase is skipped silently.
+A gate approves exactly one thing: entry into the next phase. It may also refuse and send the work back to an earlier phase — that is a return, not an advance, and it is never silent. No gate greenlights an undertaking, no phase opens early, no phase is skipped.
 
-VISION → RESEARCH → ARCHITECT → SPLIT → DISPATCH → VERIFY → INTEGRATE
+VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISPATCH → VERIFY → INTEGRATE
 
 ## When to Use
 
@@ -78,13 +78,40 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Produces** — a ledger in the repo the work touches, at `Implementation/<slug>/`: `note.md` — problem · who and situation · observable outcome · non-goals · hard constraints · unknowns, each marked answered or accepted-risk — and `evidence/` for captured payloads, screenshots, logs and baseline runs, each named by what it proves. No quality bar, no abandon condition. Later phases append to the same ledger.
 
-**Gate** — unambiguous approval in whatever form the user chooses: a plain yes, an edit to the note, an amendment spoken in the same breath. Silence, timeout or a polite non-answer is not approval → re-ask, no cap. Ambiguity test: if acting on it needs "did you mean…", it wasn't a gate. Passing it admits RESEARCH only.
+**Gate** — unambiguous approval in whatever form the user chooses: a plain yes, an edit to the note, an amendment spoken in the same breath. Silence, timeout or a polite non-answer is not approval → re-ask, no cap. Ambiguity test: if acting on it needs "did you mean…", it wasn't a gate. Passing it admits OUTWARD RESEARCH only.
 
-## 2. RESEARCH
+## 2. OUTWARD RESEARCH
 
-**Purpose** — establish what exists before anything is designed: what our code does, what our dependencies do, what the field has already solved. ARCHITECT should not have to guess at any of it.
+**Purpose** — compare the vision against everything that already exists in the world, before any code is mapped or designed.
 
-**Inward — the project, code truth**
+**Produces**
+
+- per vision outcome: what already does this — libraries, products, services, papers, specs — and what that means for us
+- pivots: what would make the undertaking fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement — with the reason each was taken or rejected
+- prior art: candidate solutions with licence, maturity, maintenance state, cost, and why we would or would not adopt each
+- claims that this is impossible or has never been done: recorded as inputs, never as rulings
+- practice: spec, RFC or vendor guidance first; a source beats an article, an article beats an opinion
+
+**Rules**
+
+- The VISION is the propellant. Questions derive from its outcomes and from nothing else.
+- No feasibility judgement about our code. Whether we can build it is INWARD RESEARCH's answer, on our own evidence.
+- Outside pessimism is recorded, never obeyed. A source that says "this cannot be done" has not read our repository.
+- Read-only.
+- Stop when every vision outcome has been compared and every open question carries a source, or an explicit "nothing exists — we decide".
+
+**Gate** — two exits, and only two:
+
+- **clear** → INWARD RESEARCH opens.
+- **return to VISION** → the vision is amended and re-approved by the user.
+
+The return loop is unbounded: it runs until the vision is perfect, however many passes that takes. Each return names the finding that forced it — a loop that changes nothing means the fence is wrong, not that the vision is finished.
+
+## 3. INWARD RESEARCH
+
+**Purpose** — establish what exists inside the project and around it: the code, our dependencies, the contracts, the baseline. ARCHITECT should not have to guess at any of it.
+
+**Produces**
 
 - files to change: path, contents, exact anchor line, each read in full
 - entry paths to the touched code, each traced to where it leaves the codebase
@@ -93,26 +120,18 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 - existing tests over the area, plus the command that runs them
 - contracts: real payloads and formats, with a captured sample
 - baseline: current suite result; a reproduction for defect work
-
-**Outward — the world, existing resources**
-
-- the problem solved elsewhere: search outside our stack — libraries, products, services, papers, specs — for something that already does this, before anything is designed
-- first principles: what would make the undertaking fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement. Record the pivot and the reason it was taken or rejected; one that changes the vision goes back to VISION
-- prior art: candidate solutions with licence, maturity, maintenance state, cost, and why we would or would not adopt each
-- practice: spec, RFC or vendor guidance first; a source beats an article, an article beats an opinion
+- what remains a decision, each with the design question it blocks
 
 **Rules**
 
 - Read-only. Repairs found anywhere are reported, never applied.
 - Every finding ties to a decision it enables, or it is trivia.
-- Questions come from the VISION and the map. RESEARCH may add one only by naming the design decision it blocks.
+- Questions come from the VISION and the map; one that blocks no design decision is trivia.
 - Stop when every open question carries a source, or an explicit "no answer exists — this is a decision".
 
-**Produces** — appended to the ledger: the map, plus four lists — what we now know · what we will not build because it exists · pivots considered, with the reason each was taken or rejected · what remains a decision.
+**Gate** — spot-check: two claims picked at random, re-verified from disk. Sufficiency: ARCHITECT can answer its design questions from this map alone, without re-reading source. A wrong claim reopens the phase.
 
-**Gate** — spot-check: two claims picked at random, re-verified at their source, disk for internal and the cited artifact for external. Sufficiency test: ARCHITECT can answer its design questions from this note alone, without a browser and without re-reading source. Unanswered external questions appear as decisions, never as silence. A wrong claim reopens the phase.
-
-## 3. ARCHITECT
+## 4. ARCHITECT
 
 **Purpose** — turn vision plus evidence into a function-level design, precise enough that SPLIT can cut it by file and DISPATCH can brief without re-deciding anything.
 
@@ -127,12 +146,12 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 - Lead alone. Design is not delegated; workers receive pinned interfaces, they never invent them.
 - No implementation inside a design: signatures and contracts, no bodies.
-- Design against RESEARCH receipts. An assumption not in evidence sends the phase back, not forward.
+- Design against INWARD RESEARCH receipts. An assumption not in evidence sends the phase back, not forward.
 - Every abstraction pays for itself. No speculative generality, no standalone refactor.
 
 **Gate** — **coverage:** every outcome mapped, every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** a slice plan is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
 
-## 4. SPLIT
+## 5. SPLIT
 
 **Purpose** — cut the current slice into lanes that can be executed and verified without interfering with each other.
 
@@ -152,11 +171,11 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Gate** — **disjointness:** the lane file sets compared mechanically, intersection empty. **Coverage:** the union of lane sets equals the slice's file list, nothing dropped. **Briefability:** each lane executable from a self-contained brief, by a worker with no access to the other lanes' context. **Ordering:** every non-disjoint pair sequenced in writing. Technical — no user gate.
 
-## 5. DISPATCH
+## 6. DISPATCH
 
 **Purpose** — turn each lane into a brief a worker can execute without asking anything, then send it and hold the line while it runs.
 
-**Brief anatomy** — the lane's scope in one line and its exit condition · closed file list with `file:line` anchors verified in RESEARCH · pinned interfaces as verbatim signature text, never a description of them · the tests to write, stated as behaviour · excluded neighbours · the project's test command · read limit: the closed file list and its imports, nothing exploratory · the deviation rule verbatim · done definition: the exact state and outputs to return.
+**Brief anatomy** — the lane's scope in one line and its exit condition · closed file list with `file:line` anchors verified in INWARD RESEARCH · pinned interfaces as verbatim signature text, never a description of them · the tests to write, stated as behaviour · excluded neighbours · the project's test command · read limit: the closed file list and its imports, nothing exploratory · the deviation rule verbatim · done definition: the exact state and outputs to return.
 
 **Test briefs** — stub every network path the unit touches: on setup, on interaction, and on the error path. Error-path tests abort before any call, so a raising stub proves the request is never reached. Assert the resulting state, not the absence of an exception. An unstubbed path is how a guard-kill later passes for the wrong reason.
 
@@ -171,7 +190,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Gate** — each brief read as a stranger would, against a mechanical checklist: closed file list · interfaces verbatim · test command · read limit · deviation rule · done definition. One brief per lane; nothing dispatched until its sequenced predecessor has integrated. Technical — no user gate.
 
-## 6. VERIFY
+## 7. VERIFY
 
 **Purpose** — establish by my own execution that the delivered lane does what the design says, and that its tests would catch it if it didn't.
 
@@ -193,7 +212,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Gate** — every action above performed, with receipts in the ledger: the commands, their output, the measurements, the guard that was killed and what it produced. An action not done is written down as not done, never implied by silence. Technical — no user gate.
 
-## 7. INTEGRATE
+## 8. INTEGRATE
 
 **Purpose** — fold the verified lane into the codebase so the system is whole and better than before, then close the ledger entry.
 

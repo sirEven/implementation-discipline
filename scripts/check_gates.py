@@ -219,7 +219,7 @@ def main() -> int:
             "cycle ceiling",
             FAIL if over else PASS,
             f"{inside['files']}/{ceiling_files} files, {inside['lines']}/{ceiling_lines} lines{origin}"
-            + (" — decompose in ARCHITECT" if over else ""),
+            + (" — decompose in ARCHITECTURE" if over else ""),
         )
 
         # 5 — skip and focus markers in the change
@@ -315,7 +315,7 @@ def main() -> int:
         add(FORM, "feel-check recorded", PASS if ok else FAIL,
             f"token `{token}`" + ("" if ok else " — not APPROVED"))
     else:
-        add(FORM, "feel-check recorded", FAIL, "no `feel-check:` line — INTEGRATE has not happened")
+        add(FORM, "feel-check recorded", FAIL, "no `feel-check:` line — INTEGRATION has not happened")
 
     fails = [r for r in rows if r["verdict"] == FAIL]
     if args.json:

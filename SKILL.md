@@ -16,7 +16,7 @@ metadata:
 
 A gate approves exactly one thing: entry into the next phase. It may also refuse and send the work back to an earlier phase — this is never silent. No gate greenlights more than the next phase, no phase opens early, no phase is skipped.
 
-VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISPATCH → VERIFY → INTEGRATE
+VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECTURE → SPLIT → DISPATCH → VERIFICATION → INTEGRATION
 
 ## When to Use
 
@@ -64,7 +64,7 @@ ideas (riskiest first):
 
 ## The mechanical half
 
-`scripts/check_gates.py` sits beside the phases and checks only what a machine can check exactly: closed file list, the ceiling, red suite, skip and focus markers in the diff, scratch residue, a gate under every phase present, evidence integrity, receipts on claims, feel-check recorded. Run it before claiming any gate; unconditionally at VERIFY and INTEGRATE.
+`scripts/check_gates.py` sits beside the phases and checks only what a machine can check exactly: closed file list, the ceiling, red suite, skip and focus markers in the diff, scratch residue, a gate under every phase present, evidence integrity, receipts on claims, feel-check recorded. Run it before claiming any gate; unconditionally at VERIFICATION and INTEGRATION.
 
 Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill correctness, brief and design sufficiency, seam fidelity, rendering truth, whether the vision was right, whether a recorded approval was genuine. Exit 0 is the absence of mechanical defects, never a signature.
 
@@ -83,12 +83,12 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Rubberduck** — one question at a time, each waiting for its answer before the next. I open with my best draft of the vision from evidence, assumptions labelled, and question only what is genuinely uncertain. The loop ends when:
 
-- every field is filled
-- no unknown is unowned — answered, or accepted as a risk by the user
-- one clean restatement carries no hedging
-- I can name what would make the vision wrong
+- one clean restatement, in my own words, carries no hedging
+- nothing in it is unresolved — every open question is answered, or accepted by you as a risk
+- nothing in it is mine to invent: every line traces to something you said, or to evidence with a receipt
+- I can name what would make it wrong
 
-**Produces** — a ledger in the repo the work touches, at `Implementation/<slug>/`: `note.md` — problem · who and situation · observable outcome · non-goals · hard constraints · unknowns, each marked answered or accepted-risk — and `evidence/` for captured payloads, screenshots, logs and baseline runs, each named by what it proves. No quality bar, no abandon condition. Later phases append to the same ledger.
+**Produces** — a ledger in the repo the work touches, at `Implementation/<slug>/`: `note.md`, opening with the vision as I restated it and you confirmed it, and `evidence/` for captures and baseline runs, each named by what it proves. Later phases append to the same ledger.
 
 **Amendments** — a vision amended after an OUTWARD return is edited in place, and the finding that forced the return is recorded in OUTWARD RESEARCH. A second VISION block is never legal; git holds the trail.
 
@@ -100,7 +100,7 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Produces**
 
-- per vision outcome: what already does this — libraries, products, services, papers, specs — and what that means for us
+- per element of the vision: what already does this — libraries, products, services, papers, specs — and what that means for us
 - pivots: what would make the idea fundamentally different or better — a different data model, a managed service, conforming to an existing standard, dropping a requirement — with the reason each was taken or rejected
 - prior art: candidate solutions with licence, maturity, maintenance state, cost, and why we would or would not adopt each
 - claims that this is impossible or has never been done: recorded as inputs, never as rulings
@@ -108,11 +108,11 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 **Rules**
 
-- The VISION is the propellant. Questions derive from its outcomes and from nothing else.
+- The VISION is the propellant. Questions derive from its elements and from nothing else.
 - No feasibility judgement about our code. Whether we can build it is INWARD RESEARCH's answer, on our own evidence.
 - Outside pessimism is recorded, never obeyed. A source that says "this cannot be done" has not read our repository.
 - Read-only.
-- Stop when every vision outcome has been compared and every open question carries a source, or an explicit "nothing exists — we decide".
+- Stop when every element of the vision has been compared and every open question carries a source, or an explicit "nothing exists — we decide".
 
 **Gate** — two exits, and only two:
 
@@ -123,7 +123,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 ## 3. INWARD RESEARCH
 
-**Purpose** — establish what exists inside the project and around it: the code, our dependencies, the contracts, the baseline. ARCHITECT should not have to guess at any of it.
+**Purpose** — establish what exists inside the project and around it: the code, our dependencies, the contracts, the baseline. ARCHITECTURE should not have to guess at any of it.
 
 **Produces**
 
@@ -143,9 +143,9 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Questions come from the VISION and the map; one that blocks no design decision is trivia.
 - Stop when every open question carries a source, or an explicit "no answer exists — this is a decision".
 
-**Gate** — spot-check: two claims picked at random, re-verified from disk. Sufficiency: ARCHITECT can answer its design questions from this map alone, without re-reading source. A wrong claim reopens the phase.
+**Gate** — spot-check: two claims picked at random, re-verified from disk. Sufficiency: ARCHITECTURE can answer its design questions from this map alone, without re-reading source. A wrong claim reopens the phase.
 
-## 4. ARCHITECT
+## 4. ARCHITECTURE
 
 **Purpose** — turn vision plus evidence into a function-level design, precise enough that SPLIT can cut it by file and DISPATCH can brief without re-deciding anything.
 
@@ -159,7 +159,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
    Either way the ledger records the estimate and what was granted.
 2. **Seams** — the interfaces between ideas, pinned. Changing one later is a renegotiation, never an idea's private choice.
 3. **Design of the current idea only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the idea, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
-4. **Traceability, both directions** — every vision outcome maps to at least one design element; every design element names the outcome it serves or the necessity it satisfies.
+4. **Traceability, both directions** — every element of the vision maps to at least one design element; every design element names the outcome it serves or the necessity it satisfies.
 
 **Rules**
 
@@ -168,7 +168,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Design against INWARD RESEARCH receipts. An assumption not in evidence sends the phase back, not forward.
 - Every abstraction pays for itself. No speculative generality, no standalone refactor.
 
-**Gate** — **coverage:** every outcome mapped, every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea decomposes, the composite is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
+**Gate** — **coverage:** every element of the vision mapped, every file in the map either in the file list or explicitly untouched. **Sufficiency:** SPLIT can cut disjoint file sets from this alone, and DISPATCH can brief with no design decision left open. **Decomposition:** when an idea decomposes, the composite is presented once, since riskiest-first changes what ships when — that presentation is the gate. **Triggers:** irreversible action, new dependency or licence, security surface, divergence from evidence or vision → mandatory user gate before SPLIT. No trigger fired → self-gated, proceed.
 
 ## 5. SPLIT
 
@@ -179,14 +179,14 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - **task list** — per task: closed file set · the design elements it implements · interfaces consumed and provided, as pinned · exit condition, meaning the tests that encode it
 - **relations** — disjoint tasks run at once; any pair sharing a file is sequenced explicitly, with the order written down
 - **merge order**, and where the pinned interfaces get checked after merge
-- **shared files** — a task that must touch one waits for the extraction designed in ARCHITECT, or the idea goes back there; nothing is extracted privately inside a task
+- **shared files** — a task that must touch one waits for the extraction designed in ARCHITECTURE, or the idea goes back there; nothing is extracted privately inside a task
 
 **Rules**
 
 - Disjoint by construction. The closed file list is computed per task; a shared file forces sequencing or extraction.
 - At most three tasks in flight. Concurrency beyond that costs more verification than it returns.
 - A task owns its code and its tests. Separating tests from the implementation is how tests come to describe imagined code instead of required behaviour.
-- A task over the ceiling means the idea was mis-sized → back to ARCHITECT.
+- A task over the ceiling means the idea was mis-sized → back to ARCHITECTURE.
 
 **Gate** — **disjointness:** the task file sets compared mechanically, intersection empty. **Coverage:** the union of task sets equals the idea's file list, nothing dropped. **Briefability:** each task executable from a self-contained brief, by a worker with no access to the other tasks' context. **Ordering:** every non-disjoint pair sequenced in writing. Technical — no user gate.
 
@@ -203,13 +203,13 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - Design decisions are never delegated. A worker that needs one stops and reports.
 - One brief per task; no brief spans two tasks.
 - Workers report blockers to the lead, never to the user, and never re-scope.
-- A blocked or partial return belongs to DISPATCH: re-brief it, or send it back to ARCHITECT if the design is at fault. VERIFY only ever sees work claimed complete.
+- A blocked or partial return belongs to DISPATCH: re-brief it, or send it back to ARCHITECTURE if the design is at fault. VERIFICATION only ever sees work claimed complete.
 
 **Solo mode** — no workers: the brief is the task's exit condition, and the tasks run in the written order. Same discipline, no paperwork.
 
 **Gate** — each brief read as a stranger would, against a mechanical checklist: closed file list · interfaces verbatim · test command · read limit · deviation rule · done definition. One brief per task; nothing dispatched until its sequenced predecessor has integrated. Technical — no user gate.
 
-## 7. VERIFY
+## 7. VERIFICATION
 
 **Purpose** — establish by my own execution that the delivered task does what the design says, and that its tests would catch it if it didn't.
 
@@ -231,7 +231,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 **Gate** — every action above performed, with receipts in the ledger: the commands, their output, the measurements, the guard that was killed and what it produced. An action not done is written down as not done, never implied by silence. Technical — no user gate.
 
-## 8. INTEGRATE
+## 8. INTEGRATION
 
 **Purpose** — fold the verified task into the codebase so the system is whole and better than before, then close the ledger entry.
 
@@ -240,9 +240,9 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 - merge in the written order, running the full suite after each merge — a green task can still break the codebase on contact
 - check the pinned seams: every interface as designed, no task quietly widened one. A seam that moved is a design amendment recorded as such, never a merge detail
 - run it, let the user use it, take the feel-check
-- commit only after the feel-check passes, with a message naming the idea and the vision outcome it serves
+- commit only after the feel-check passes, with a message naming the idea and the part of the vision it serves
 - ledger entry: what shipped · what was proven · what was deferred · the gate receipts
-- **close-out**, when this was the last task of the last idea and no idea of a composite is left pending: every vision outcome traced to shipped work, the system exercised end to end, seams checked against what was pinned
+- **close-out**, when this was the last task of the last idea and no idea of a composite is left pending: every element of the vision traced to shipped work, the system exercised end to end, seams checked against what was pinned
 
 **Branches** — a concurrency tool, not a structure. One checkout by default, tasks committing in the written order. A branch or a second checkout exists only while two tasks are in flight, or when a change must be revertable as a unit; it is merged or discarded before the idea's feel-check, never left open.
 

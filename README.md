@@ -3,19 +3,19 @@
 A skill for coding agents. Eight phases, each with a gate that admits entry into the next phase and nothing more.
 
 ```
-VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECT → SPLIT → DISPATCH → VERIFY → INTEGRATE
+VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECTURE → SPLIT → DISPATCH → VERIFICATION → INTEGRATION
 ```
 
 | phase | output |
 |---|---|
-| VISION | agreed destination: problem, who it serves, observable outcome, non-goals, constraints, unknowns |
+| VISION | the vision, restated by the agent and confirmed by you |
 | OUTWARD RESEARCH | the world against the vision: what already exists, pivots worth taking, claims that it cannot be done — may return to VISION as often as it takes |
 | INWARD RESEARCH | the project: files, entry paths, dependencies in use, contracts, baseline |
-| ARCHITECT | function-level design, and — when the idea exceeds the ceiling — either a composite or a raised ceiling |
+| ARCHITECTURE | function-level design, and — when the idea exceeds the ceiling — either a composite or a raised ceiling |
 | SPLIT | tasks with disjoint file sets, sequenced where they touch the same file |
 | DISPATCH | one self-contained brief per task |
-| VERIFY | proof by execution: the diff read, the suite run, a guard killed, the user's path walked |
-| INTEGRATE | merge in written order, seam check, feel-check, commit |
+| VERIFICATION | proof by execution: the diff read, the suite run, a guard killed, the user's path walked |
+| INTEGRATION | merge in written order, seam check, feel-check, commit |
 
 ## Terms
 
@@ -50,7 +50,7 @@ The checker reads these from the idea's ledger:
 
 It also reads the fenced `closed-files` block and the `feel-check:` line; both are described in SKILL.md.
 
-Two things that are not settings. The three-task limit is a rule of the pipeline, not a knob. And the ceiling is a trigger with teeth: the checker fails an idea that crosses it, which sends the work back to ARCHITECT — where it either decomposes into a composite or runs at a raised ceiling.
+Two things that are not settings. The three-task limit is a rule of the pipeline, not a knob. And the ceiling is a trigger with teeth: the checker fails an idea that crosses it, which sends the work back to ARCHITECTURE — where it either decomposes into a composite or runs at a raised ceiling.
 
 ## Tests
 

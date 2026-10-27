@@ -99,11 +99,11 @@ DEFAULT_PHASES = [
     (1, "VISION", "**Produces** — problem, outcome."),
     (2, "OUTWARD RESEARCH", "- finding `src/a.py:1`"),
     (3, "INWARD RESEARCH", "- map `src/a.py:1`"),
-    (4, "ARCHITECT", "**Produces** — design."),
+    (4, "ARCHITECTURE", "**Produces** — design."),
     (5, "SPLIT", "**Produces** — one lane."),
     (6, "DISPATCH", "**Brief anatomy** — scope."),
-    (7, "VERIFY", "- `git diff` read"),
-    (8, "INTEGRATE", "**Gate** — closed."),
+    (7, "VERIFICATION", "- `git diff` read"),
+    (8, "INTEGRATION", "**Gate** — closed."),
 ]
 
 
@@ -148,13 +148,13 @@ class CheckGates(unittest.TestCase):
 
     def test_missing_gate_fails(self):
         phases = list(DEFAULT_PHASES)
-        phases[3] = (4, "ARCHITECT", "**Produces** — design.")
+        phases[3] = (4, "ARCHITECTURE", "**Produces** — design.")
         self.idea.ledger(phases=[(n, name, *rest) for n, name, *rest in phases])
-        # strip the gate from ARCHITECT
+        # strip the gate from ARCHITECTURE
         note = self.idea.root / "Implementation/demo/note.md"
         text = note.read_text().replace(
-            "## 4. ARCHITECT\n\n**Produces** — design.\n\n**Gate** — met.",
-            "## 4. ARCHITECT\n\n**Produces** — design.",
+            "## 4. ARCHITECTURE\n\n**Produces** — design.\n\n**Gate** — met.",
+            "## 4. ARCHITECTURE\n\n**Produces** — design.",
         )
         note.write_text(text)
         code, out, _ = run(self.idea.root)

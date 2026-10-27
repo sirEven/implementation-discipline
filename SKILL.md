@@ -159,7 +159,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
    Either way the ledger records the estimate and what was granted.
 2. **Seams** — the interfaces between ideas, pinned. Changing one later is a renegotiation, never an idea's private choice.
 3. **Design of the current idea only** — file list, one line per file on what changes · interfaces: signatures, inputs and outputs, error contracts, data shapes crossing module boundaries · abstractions and one-way dependency direction · extraction: a file other work also depends on gets its domain pulled into its own module as part of this design, a byproduct of the idea, never a standalone refactor cycle · build order · test seams, where the guards will live · excluded neighbours: near siblings that must not be touched, listed only if they exist · size in files and lines.
-4. **Traceability, both directions** — every element of the vision maps to at least one design element; every design element names the outcome it serves or the necessity it satisfies.
+4. **Traceability, both directions** — every element of the vision maps to at least one design element; every design element names the element of the vision it serves, or the necessity it satisfies.
 
 **Rules**
 

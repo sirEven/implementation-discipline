@@ -169,23 +169,21 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 ## 5. SPLIT
 
-**Purpose** — cut the current idea into tasks that can be executed and verified without interfering with each other.
+**Purpose** — partition the design into tasks that can be executed and verified without interfering: each task owns a disjoint subset of the design's file list, builds the stated part of it, and is done when the tests at its seams pass.
 
 **Produces**
 
-- **task list** — per task: closed file set · the part of the design it builds · interfaces consumed and provided, as pinned · exit condition, meaning the tests that encode it
-- **relations** — disjoint tasks run at once; any pair sharing a file is sequenced explicitly, with the order written down
-- **merge order**, and where the pinned interfaces get checked after merge
-- **shared files** — a task that must touch one waits for the extraction designed in ARCHITECTURE, or the idea goes back there; nothing is extracted privately inside a task
+- **task list** — a partition of the design's file list: per task, the files it owns, the part of the design it builds, the interfaces it consumes and provides as pinned, its excluded neighbours, and the test seams whose tests are its exit condition
+- **order** — the sequence, taken from the design's build order, with the order tasks land and where the pinned interfaces are checked after each landing
+- **shared files** — a file two tasks would both need: the design should have extracted it. Failing that, one task takes it and the other waits, and the wait is written down. Nothing is extracted privately inside a task.
 
 **Rules**
 
-- Disjoint by construction. The closed file list is computed per task; a shared file forces sequencing or extraction.
-- At most three tasks in flight. Concurrency beyond that costs more verification than it returns.
+- A partition, not a plan: every file in the design's file list belongs to exactly one task, and no task owns a file outside it.
+- At most three tasks at once. More tasks run in waves — the limit is how much unfinished work can be verified at a time.
 - A task owns its code and its tests. Separating tests from the implementation is how tests come to describe imagined code instead of required behaviour.
-- A task over the ceiling means the idea was mis-sized → back to ARCHITECTURE.
 
-**Gate** — **disjointness:** the task file sets compared mechanically, intersection empty. **Coverage:** the union of task sets equals the idea's file list, nothing dropped. **Briefability:** each task executable from a self-contained brief, by a worker with no access to the other tasks' context. **Ordering:** every non-disjoint pair sequenced in writing. Technical — no user gate.
+**Gate** — **partition:** no file in two task sets, none dropped, the union equal to the design's file list. **Ordering:** every dependency in the design's build order appears in the task order. **Briefability:** each task executable from a self-contained brief, by a worker with no access to the other tasks' context. Technical — no user gate.
 
 ## 6. DISPATCH
 

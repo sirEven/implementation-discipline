@@ -96,7 +96,7 @@ class Idea:
 
 
 DEFAULT_PHASES = [
-    (1, "VISION", "**Produces** — problem, outcome."),
+    (1, "VISION", "**Produces** — the vision."),
     (2, "OUTWARD RESEARCH", "- finding `src/a.py:1`"),
     (3, "INWARD RESEARCH", "- map `src/a.py:1`"),
     (4, "ARCHITECTURE", "**Produces** — design."),

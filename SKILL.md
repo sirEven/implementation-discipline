@@ -5,7 +5,7 @@ version: 2.0.0
 author: sirEven (GitHub), Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
-compatibility: "Hermes Agent (agentskills.io format). Requires the skills test-driven-development, systematic-debugging and dogfood."
+compatibility: "agentskills.io format. Requires the companion skills test-driven-development, systematic-debugging and dogfood."
 metadata:
   hermes:
     tags: [workflow, gates, phases, discipline, tdd]

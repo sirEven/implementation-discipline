@@ -29,6 +29,14 @@ Any agent that reads the [agentskills.io](https://agentskills.io/specification) 
 python3 scripts/check_gates.py --help
 ```
 
+## Tests
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+Stdlib only, no install step. Each test builds a throwaway git repository in a temporary directory, so nothing here depends on where the repo was cloned.
+
 ## Companion skills
 
 The skill cites three and restates none of them: `test-driven-development`, `systematic-debugging`, `dogfood`. Where they are not installed, supply equivalents.

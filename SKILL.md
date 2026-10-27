@@ -38,7 +38,7 @@ Three companions, each loaded at its moment, none of them restated here:
 
 ## Ledger conventions
 
-`check_gates.py` reads five things from `Implementation/<slug>/note.md`. Write them literally:
+`check_gates.py` reads these from `Implementation/<slug>/note.md`. Write them literally:
 
 ```
 base: <commit the idea started from>
@@ -68,7 +68,7 @@ ideas (riskiest first):
   #2  session-store-migration   pending
 ```
 
-ARCHITECTURE writes that list when the idea decomposes; INTEGRATION marks an idea done when its last task merges.
+ARCHITECTURE writes that list when the idea decomposes; INTEGRATION marks an idea done when its last task lands.
 
 ## The mechanical half
 
@@ -151,7 +151,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 ## 4. ARCHITECTURE
 
-**Purpose** — turn vision plus evidence into a function-level design, precise enough that SPLIT can cut it by file and DISPATCH can brief without re-deciding anything.
+**Purpose** — turn vision plus evidence into a function-level design, precise enough that SPLIT can partition it by file and DISPATCH can brief without re-deciding anything.
 
 **Produces, in this order**
 
@@ -199,7 +199,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 
 **Brief anatomy** — when delegating, each task becomes a brief containing: the task's scope in one line and its exit condition · closed file list with `file:line` anchors verified in INWARD RESEARCH · pinned interfaces as verbatim signature text, never a description of them · the tests to write, stated as behaviour · excluded neighbours · the project's test command · read limit: the closed file list and its imports, nothing exploratory · the deviation rule verbatim · done definition: the exact state and outputs to return.
 
-**Test briefs** — stub every network path the unit touches: on setup, on interaction, and on the error path. Error-path tests abort before any call, so a raising stub proves the request is never reached. Assert the resulting state, not the absence of an exception. An unstubbed path is how a guard-kill later passes for the wrong reason.
+**Test briefs** — stub every network path the task touches: on setup, on interaction, and on the error path. Error-path tests abort before any call, so a raising stub proves the request is never reached. Assert the resulting state, not the absence of an exception. An unstubbed path is how a guard-kill later passes for the wrong reason.
 
 **Rules**
 
@@ -217,7 +217,7 @@ The return loop is unbounded: it runs until the vision is perfect, however many 
 **Actions, per task**
 
 - read the diff file by file, all of it
-- run the full suite, never the focused files the worker was told to run
+- run the full suite, never just the files the task touched
 - **guard-kill** — disable one guard the tests claim to cover → demand RED for that reason → restore → GREEN. Kill results must be attributable: a RED from broken stubs or a real socket proves nothing
 - **fixture check** — any parser or renderer of third-party output carries a real-payload test; a measurement assertion is proved by re-injecting the bug it guards, demanding FAIL, then restoring
 - **dogfood, mandatory on any user-facing surface** — load the `dogfood` skill and walk the delivered work's path the way a user would, with its evidence and reporting discipline; for anything that renders, measure the output rather than merely confirming it exists

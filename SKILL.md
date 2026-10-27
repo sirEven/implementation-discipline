@@ -79,14 +79,13 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 
 ## 1. VISION
 
-**Triage** — one line: what I read the idea as, that the pipeline is opening, and the vision target. User confirms, corrects the target, or declines. Declined → recorded as "pipeline declined", work proceeds directly, no gate, no re-litigation.
+**Opening** — one line: what I read the idea as, that the pipeline is opening, and the vision target. You confirm or correct the target.
 
 **Rubberduck** — one question at a time, each waiting for its answer before the next. I open with my best draft of the vision from evidence, assumptions labelled, and question only what is genuinely uncertain. The loop ends when:
 
 - one clean restatement, in my own words, carries no hedging
 - nothing in it is unresolved — every open question is answered, or accepted by you as a risk
 - nothing in it is mine to invent: every line traces to something you said, or to evidence with a receipt
-- I can name what would make it wrong
 
 **Produces** — a ledger in the repo the work touches, at `Implementation/<slug>/`: `note.md`, opening with the vision as I restated it and you confirmed it, and `evidence/` for captures and baseline runs, each named by what it proves. Later phases append to the same ledger.
 

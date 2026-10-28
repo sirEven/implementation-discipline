@@ -15,13 +15,13 @@ VISION → OUTWARD RESEARCH → INWARD RESEARCH → ARCHITECTURE → SPLIT → D
 | SPLIT | tasks with disjoint file sets, sequenced where they touch the same file |
 | DISPATCH | one self-contained brief per task |
 | VERIFICATION | proof by execution: the diff read, the suite run, a guard killed, the user's path walked |
-| INTEGRATION | merge in written order, seam check, feel-check, commit |
+| INTEGRATION | land in written order, seam check, feel-check, commit |
 
 ## Terms
 
 **Idea** — one full run of the eight phases: a piece of intent small enough to design, build and verify in a single pass.
 
-**Task** — a parallel unit inside an idea: a disjoint set of files handed to one self-contained brief. Tasks never cross ideas.
+**Task** — a parallel piece of an idea: a disjoint set of files handed to one self-contained brief. Tasks never cross ideas.
 
 **Composite** — what an over-sized idea becomes when it decomposes instead of raising its ceiling: a record listing the ideas it produced, riskiest first, with the seams between them pinned. It runs no phases and closes when its last idea closes.
 

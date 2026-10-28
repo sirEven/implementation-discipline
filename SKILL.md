@@ -116,7 +116,8 @@ Its NOT CHECKED footer names what stays mine — RED attribution, guard-kill cor
 - No feasibility judgement about our code. Whether we can build it is INWARD RESEARCH's answer, on our own evidence.
 - Outside pessimism is recorded, never obeyed. A source that says "this cannot be done" has not read our repository.
 - Read-only.
-- A source beats an article, an article beats an opinion; spec or vendor guidance first.
+- A source beats an article, an article beats an opinion; spec or vendor guidance first. The reference for anything we integrate with — its docs index, SDK or API reference — is read before anything is claimed about it.
+- **Absence needs a citation.** A capability is never declared missing on the evidence of the code paths we happened to try; it is missing when the reference says so, or the claim carries `(assumed)`. Three refusals from our own mechanism prove our mechanism wrong, not that the world is empty.
 - Stop when every part of the vision has been compared and every open question carries a source, or an explicit "nothing exists — we decide".
 
 **Gate** — two exits, and only two:
